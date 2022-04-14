@@ -4,6 +4,11 @@ plugins {
 	id 'java'
 }
 
+ext {
+	jedisVersion = '3.1.0'
+	lombokVersion = '1.18.20'
+}
+
 group = 'com.khakimova'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -21,10 +26,10 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'redis.clients:jedis:3.1.0'
+	implementation "redis.clients:jedis:${jedisVersion}"
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

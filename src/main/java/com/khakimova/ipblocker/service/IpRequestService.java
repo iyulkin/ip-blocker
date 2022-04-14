@@ -6,20 +6,23 @@ import com.khakimova.ipblocker.repository.IpRequestRepository;
 import java.util.Date;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class IpRequstService {
+public class IpRequestService {
     private final IpRequestProperties properties;
     private final IpRequestRepository repository;
 
     public boolean checkIpRequestsLessThanMaxQuantity(String ip) {
         Long currentTimeInMillis = getCurrentTimeInMillis();
 
-        return Optional.ofNullable(repository.findById(ip)).map(ipRequest -> ipRequest.getRequests().stream()
-                .filter(time -> time >= currentTimeInMillis - properties.getInterval())
-                .count() < properties.getQuantity()).orElse(false);
+        return Optional.ofNullable(repository.findById(ip)).map(ipRequest ->
+                ipRequest.getRequests().stream()
+                        .filter(time -> time >= currentTimeInMillis - properties.getInterval())
+                        .count() < properties.getQuantity()).orElse(true);
     }
 
     public void addRequest(String ip) {
@@ -29,11 +32,13 @@ public class IpRequstService {
             ipRequest.getRequests().removeIf(time -> time < currentTimeInMillis - properties.getInterval());
             ipRequest.getRequests().add(currentTimeInMillis);
             repository.save(ipRequest);
+            log.debug("Requests by ip {} updated {}", ip, ipRequest.getRequests());
         }, () -> {
-            IpRequest request = new IpRequest();
-            request.setId(ip);
-            request.getRequests().add(currentTimeInMillis);
-            repository.save(request);
+            IpRequest ipRequest = new IpRequest();
+            ipRequest.setId(ip);
+            ipRequest.getRequests().add(currentTimeInMillis);
+            repository.save(ipRequest);
+            log.debug("Requests by ip {} created {}", ip, ipRequest.getRequests());
         });
     }
 

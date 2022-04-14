@@ -1,4 +1,9 @@
 ip:
   request:
-    quantity: 5
-    interval: 10000
+    quantity: 3
+    interval: 100000
+
+logging:
+  level:
+    root: info
+    com.khakimova: debug
