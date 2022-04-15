@@ -17,6 +17,10 @@ public class IpRequestService {
     private final IpRequestRepository repository;
 
     public boolean checkIpRequestsLessThanMaxQuantity(String ip) {
+        if(ip == null) {
+            return false;
+        }
+
         Long currentTimeInMillis = getCurrentTimeInMillis();
 
         return Optional.ofNullable(repository.findById(ip)).map(ipRequest ->
