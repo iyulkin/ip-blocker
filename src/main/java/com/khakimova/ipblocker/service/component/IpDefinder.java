@@ -16,6 +16,9 @@ public class IpDefinder {
     }
 
     public String defineIp(HttpServletRequest request) {
+        if(request == null) {
+            return null;
+        }
         for (IpDefinderByRequestHeader definder : ipDefinderByRequestHeaderList) {
             String ip = definder.defineIp(request);
             if (ip != null) {
