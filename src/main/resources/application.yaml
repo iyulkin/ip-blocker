@@ -1,9 +1,12 @@
 ip:
   request:
-    quantity: 3
-    interval: 100000
+    quantity: ${IP_REQUEST_QUANTITY:3}
+    interval: ${IP_REQUEST_INTERVAL:100000}
+redis:
+  host: ${REDIS_HOST:localhost}
+  port: ${REDIS_PORT:6379}
 
 logging:
   level:
-    root: info
-    com.khakimova: debug
+    root: ${ROOT_LOGGIN_LEVEL:info}
+    com.khakimova: ${LOGGING_LEVEL:debug}

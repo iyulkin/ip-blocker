@@ -1,0 +1,15 @@
+version: '2.1'
+services:
+  ip-blocker-redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+
+  ip-blocker:
+    image: ip-blocker
+    restart: always
+    environment:
+      REDIS_HOST: ip-blocker-redis
+    ports:
+      - 8080:8080

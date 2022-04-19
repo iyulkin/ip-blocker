@@ -10,7 +10,7 @@ ext {
 }
 
 group = 'com.khakimova'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 configurations {
@@ -38,4 +38,10 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks {
+	bootJar {
+		launchScript()
+	}
 }
