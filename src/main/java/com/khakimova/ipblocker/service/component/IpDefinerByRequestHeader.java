@@ -2,7 +2,7 @@ package com.khakimova.ipblocker.service.component;
 
 import javax.servlet.http.HttpServletRequest;
 
-public interface IpDefinderByRequestHeader {
+public interface IpDefinerByRequestHeader {
 
     Integer priority();
 

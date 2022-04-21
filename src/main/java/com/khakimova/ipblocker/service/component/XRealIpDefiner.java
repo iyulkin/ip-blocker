@@ -3,14 +3,15 @@ package com.khakimova.ipblocker.service.component;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProxyClientIpDefinder implements IpDefinderByRequestHeader {
+public class XRealIpDefiner implements IpDefinerByRequestHeader {
+
     @Override
     public Integer priority() {
-        return 30;
+        return 10;
     }
 
     @Override
     public String requestHeader() {
-        return "PROXY-CLIENT-IP";
+        return "X-REAL-IP";
     }
 }

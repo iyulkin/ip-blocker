@@ -2,7 +2,7 @@ package com.khakimova.ipblocker.aop;
 
 import com.khakimova.ipblocker.exception.NumberOfRequestsExceededException;
 import com.khakimova.ipblocker.service.IpRequestService;
-import com.khakimova.ipblocker.service.component.IpDefinder;
+import com.khakimova.ipblocker.service.component.IpDefiner;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class IpBlockerAspect {
 
     private final IpRequestService service;
-    private final IpDefinder ipDefinder;
+    private final IpDefiner ipDefiner;
 
     @Pointcut("@annotation(com.khakimova.ipblocker.aop.IpBlocker)")
     public void ipBlockerMethodCall() {
@@ -32,7 +32,7 @@ public class IpBlockerAspect {
     public void blockByIp(JoinPoint jp) {
         HttpServletRequest request = getHttpServletRequest();
 
-        String ip = ipDefinder.defineIp(request);
+        String ip = ipDefiner.defineIp(request);
         log.debug("Request from {}", ip);
         if (!service.checkIpRequestsLessThanMaxQuantity(ip)) {
             // todo: maybe here we need to save user request too - clarify with client

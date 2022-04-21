@@ -3,7 +3,7 @@ package com.khakimova.ipblocker.service.component;
 import org.springframework.stereotype.Component;
 
 @Component
-public class XForwardedForIpDefinder implements IpDefinderByRequestHeader {
+public class XForwardedForIpDefiner implements IpDefinerByRequestHeader {
     @Override
     public Integer priority() {
         return 20;
